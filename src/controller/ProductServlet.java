@@ -29,13 +29,27 @@ public class ProductServlet extends HttpServlet {
         int lastIndex = uri.lastIndexOf("/");
         String action = uri.substring(lastIndex + 1);
         if (action.equals("product_input")) {
+            String id = request.getParameter("id");
+            if (id != null) { //Edit
+                Product product = new ProductHandler().getProductByID(id);
+                request.setAttribute("product", product);
+            }
+            //New
         } else if (action.equals("product_save")) {
+
             Product product = new Product();
             product.setName(request.getParameter("name"));
             product.setDescription(request.getParameter("description"));
             product.setPrice(Float.parseFloat(request.getParameter("price")));
-            new ProductHandler().insert(product);
-            request.setAttribute("product", product);
+            String id = request.getParameter("id");
+            if (id != null) { //Edit
+                product.setId(Integer.parseInt(id));
+                new ProductHandler().update(product);
+                request.setAttribute("product", product);
+            } else {
+                new ProductHandler().insert(product);
+                request.setAttribute("product", product);
+            }
         } else {
             List<Product> products = new ProductHandler().getProducts();
             request.setAttribute("products", products);

@@ -11,19 +11,21 @@
         <table>
             <tr>
                 <td>Product Name:</td>
-                <td><input type="text" name="name"/></td>
+                <td><input type="text" name="name" value="${product.name}"/></td>
             </tr>
             <tr>
                 <td>Description:</td>
-                <td><input type="text" name="description"/></td>
+                <td><input type="text" name="description" value="${product.description}"/></td>
             </tr>
             <tr>
                 <td>Price:</td>
-                <td><input type="text" name="price"/></td>
+                <td><input type="text" name="price" value="${product.price}"/></td>
             </tr>
             <tr>
                 <td><input type="reset"/></td>
-                <td><input type="submit" value="Add Product"/></td>
+
+                <td><input type="submit" value="${product == null ? 'Add Product' : 'Update Product'}"/><input
+                        type="hidden" value="${product.id}" name="id"/></td>
             </tr>
         </table>
     </form>
